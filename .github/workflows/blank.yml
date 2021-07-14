@@ -45,9 +45,9 @@ jobs:
           
       - name: Find modified files
         run: |
-          git diff --name-only --diff-filter=ad ${{ github.ref }}..${{ github.sha }}
+          git diff --name-only --diff-filter=ad ${{ github.base_ref }}..${{ github.sha }}
 
       - name: Find new files
         run: |
-          git diff --name-only --diff-filter=A ${{ github.ref }}..${{ github.sha }}
+          git diff --name-only --diff-filter=A ${{ github.base_ref }}..${{ github.sha }}
           
