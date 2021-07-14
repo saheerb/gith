@@ -47,6 +47,7 @@ jobs:
           
       - name: Find modified files
         run: |
+          git branch -l
           git diff --name-only --diff-filter=ad ${{ github.base_ref }}.. || true
           git diff --name-only --diff-filter=ad ${GITHUB_BASE_REF}.. || true
 
