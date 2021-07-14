@@ -49,10 +49,9 @@ jobs:
       - name: Find modified files
         run: |
           git branch -l
-          git diff --name-only --diff-filter=ad origin/${{ github.base_ref }}.. || true
-          git diff --name-only --diff-filter=ad origin/${GITHUB_BASE_REF}.. || true
+          git diff --name-only --diff-filter=ad origin/${GITHUB_BASE_REF}
 
       - name: Find new files
         run: |
-          git diff --name-only --diff-filter=A ${{ github.base_ref }}..${{ github.sha }} || true
+          git diff --name-only --diff-filter=A origin/${GITHUB_BASE_REF}
           
