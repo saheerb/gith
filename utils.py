@@ -19,7 +19,7 @@ def get_digest(ctx, repository, tag, platform=None):
     )
     output = json.loads(output)
 
-    print(output['digest'])
+    logging.info(output)
 
 @click.command()
 @click.pass_context
