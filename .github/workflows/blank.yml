@@ -71,4 +71,10 @@ jobs:
           DIGEST=$(python ./utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} get-digest -r docker-test -t latest)
           echo "::set-output name=DIGEST::$DIGEST"
           echo "Docker DIGEST: $DIGEST"
-          
+
+      - 
+        name: copy image
+        id: copy
+        run: |
+          python ./utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} copy-image -r docker-test -t latest
+
