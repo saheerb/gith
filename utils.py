@@ -18,27 +18,23 @@ def get_digest(ctx, repository, tag, platform=None):
         "utf-8"
     )
     output = json.loads(output)
-    logging.info(output)
 
-    images = output["manifests"]
-    digest = ""
-    if len(images) > 1 and platform == None:
-        logging.error(
-            "This tag has more than one platform associated to it, please input a platform"
-        )
-        sys.exit(1)
+    print(output['digest'])
 
-    for image in images:
-        if platform != None:
-            if (platform.split("/")[0] == image["platform"]["os"]) and (
-                platform.split("/")[1] == image["platform"]["architecture"]
-            ):
-                digest = image["digest"]
-        else:
-            digest = image["digest"]
+@click.command()
+@click.pass_context
+@click.option("-r", "--repository", required=True)
+@click.option("-t", "--tag", required=True)
+@click.option("-p", "--platform", required=False)
+def copy_image(ctx, repository, tag, platform=None):
+    command =  f"docker run quay.io/skopeo/stable --src-creds={ctx.obj['username']}:{ctx.obj['passwd']} --dest-creds={ctx.obj['username']}:{ctx.obj['passwd']} copy --all docker://ghcr.io/saheerb/docker-test:latest  docker://ghcr.io/saheerb/mbed-os-env:hacked" 
+    output = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout.decode(
+        "utf-8"
+    )
+    output = json.loads(output)
 
-    print(digest)
-
+    print(output['digest'])
+    
 
 # delete images older than provided argument (number_of_days)
 @click.command()
@@ -103,4 +99,5 @@ def main(ctx, username, passwd, verbose):
 if __name__ == "__main__":
     main.add_command(get_digest)
     main.add_command(delete_old_images)
+    main.add_command(copy_image)
     main()
