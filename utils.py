@@ -31,9 +31,8 @@ def copy_image(ctx, repository, tag, platform=None):
     output = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout.decode(
         "utf-8"
     )
-    output = json.loads(output)
 
-    print(output['digest'])
+    print(output)
     
 
 # delete images older than provided argument (number_of_days)
