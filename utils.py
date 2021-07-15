@@ -27,7 +27,7 @@ def get_digest(ctx, repository, tag, platform=None):
 @click.option("-t", "--tag", required=True)
 @click.option("-p", "--platform", required=False)
 def copy_image(ctx, repository, tag, platform=None):
-    command =  f"docker run quay.io/skopeo/stable --src-creds={ctx.obj['username']}:{ctx.obj['passwd']} --dest-creds={ctx.obj['username']}:{ctx.obj['passwd']} copy --all docker://ghcr.io/saheerb/docker-test:latest  docker://ghcr.io/saheerb/mbed-os-env:hacked" 
+    command =  f"docker run quay.io/skopeo/stable --src-creds={ctx.obj['username']}:{ctx.obj['passwd']} --dest-creds={ctx.obj['username']}:{ctx.obj['passwd']} copy --all docker://ghcr.io/saheerb/docker-test:latest  docker://ghcr.io/saheerb/mbed-os-env:hacked-123" 
     output = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout.decode(
         "utf-8"
     )
