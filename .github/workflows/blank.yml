@@ -45,30 +45,30 @@ jobs:
           echo "github.sha: ${{ github.sha }}"
           echo "github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}"
 
-      - 
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          registry: ghcr.io
-          username: saheerb
-          password: ${{ secrets.MY_TOKEN }}
+#       - 
+#         name: Login to DockerHub
+#         uses: docker/login-action@v1 
+#         with:
+#           registry: ghcr.io
+#           username: saheerb
+#           password: ${{ secrets.MY_TOKEN }}
           
-      -
-        name: Build docker containers
-        uses: docker/build-push-action@v2
-        id: docker_build_dev
-        with:
-          context: .
-          platforms: linux/amd64
-          push: true 
-          file: ./Dockerfile
-          tags: ghcr.io/${{ github.actor }}/docker-test:latest
+#       -
+#         name: Build docker containers
+#         uses: docker/build-push-action@v2
+#         id: docker_build_dev
+#         with:
+#           context: .
+#           platforms: linux/amd64
+#           push: true 
+#           file: ./Dockerfile
+#           tags: ghcr.io/${{ github.actor }}/docker-test:latest
       
       - 
         name: Find DEV DOCKER DIGEST
         id: docker_info_dev
         run: |
-          DIGEST=$(python ./utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} get-digest -r docker-test -t latest)
+          DIGEST=$(python ./utils.py -u ${{ github.actor }} -p ${{ secrets.MY_TOKEN }} get-digest -r docker-test -t latest)
           echo "::set-output name=DIGEST::$DIGEST"
           echo "Docker DIGEST: $DIGEST"
 
@@ -76,5 +76,5 @@ jobs:
         name: copy image
         id: copy
         run: |
-          python ./utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} copy-image -r docker-test -t latest
+          python ./utils.py -u ${{ github.actor }} -p ${{ secrets.MY_TOKEN }} copy-image -r docker-test -t latest
 
