@@ -18,7 +18,7 @@ def get_digest(ctx, repository, tag, platform=None):
         "utf-8"
     )
     output = json.loads(output)
-    # logging.info(output)
+    logging.info(output)
 
     images = output["manifests"]
     digest = ""
