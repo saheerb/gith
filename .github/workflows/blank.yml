@@ -68,7 +68,7 @@ jobs:
         name: Find DEV DOCKER DIGEST
         id: docker_info_dev
         run: |
-          DIGEST=$(python ./.github_utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} get-digest -r docker-test -t latest)
+          DIGEST=$(python ./.utils.py -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} get-digest -r docker-test -t latest)
           echo "::set-output name=DIGEST::$DIGEST"
           echo "Docker DIGEST: $DIGEST"
           
