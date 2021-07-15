@@ -62,7 +62,7 @@ jobs:
           platforms: linux/amd64
           push: true 
           file: ./Dockerfile
-          tags: ghcr.io/${{ github.actor }}/docker-test:latest
+          tags: ghcr.io/saheerb/docker-test:latest
       
       - 
         name: Find DEV DOCKER DIGEST
